@@ -1,0 +1,13 @@
+server:
+  address: 127.0.0.1
+  port: 8081
+
+spring:
+  #  profiles: development
+  thymeleaf:
+    prefix: /WEB-INF/templates/
+    suffix: .html
+    templateMode: HTML
+    servlet.content-type: text/html
+    encoding: utf-8
+    cache: false
