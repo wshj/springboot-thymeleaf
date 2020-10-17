@@ -5,9 +5,15 @@ server:
 spring:
   #  profiles: development
   thymeleaf:
+    # 模板文件的路径
     prefix: /WEB-INF/templates/
+    # 模板文件的结尾
     suffix: .html
+    # 模板文件的解析模式（默认：HTML）
     templateMode: HTML
+    # Content-Type value written to HTTP responses.
     servlet.content-type: text/html
+    # 模板文件编码
     encoding: utf-8
+    # 是否开启缓存
     cache: false

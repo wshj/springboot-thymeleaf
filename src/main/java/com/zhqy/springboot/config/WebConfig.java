@@ -18,6 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 匹配 /static/ 开头的url，然后从根目录下的 static 下根据具体路径查询。
+        // 例如url为：http://localhost:8081/static/layui-v2.5.6/layui/layui.all.js 则查询的是根目录下的 /static/layui-v2.5.6/layui/layui.all.js 文件
         registry.addResourceHandler("/static/**").addResourceLocations("/static/");
     }
 }
