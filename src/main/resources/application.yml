@@ -1,3 +1,15 @@
 server:
   address: 127.0.0.1
   port: 8081
+
+spring:
+  mvc:
+    # 指定需要映射的URL的匹配正则（/static/** 代表 URL必须是 /static/ 开头的才会匹配静态资源）
+    # 默认：/**
+    # 指定后会导致默认值的失效
+    static-path-pattern: /static/**
+  resources:
+    # 指定静态资源所在的文件夹
+    # 默认：classpath:/static；classpath:/public；classpath:/resources；classpath:/META-INF/resources；
+    # 指定后会导致默认值的失效
+    static-locations: /common/
