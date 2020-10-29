@@ -17,3 +17,8 @@ spring:
     encoding: utf-8
     # 是否开启缓存
     cache: false
+
+
+logging:
+  file:
+    name: /opt/logs/springboot_thymeleaf.log
