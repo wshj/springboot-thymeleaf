@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
  *
  * @author wangshuaijing
  * @version 1.0.0
- * @CreateDate 2020/10/16
+ * @date 2020/10/16
  */
 @SpringBootApplication
 @ComponentScan
