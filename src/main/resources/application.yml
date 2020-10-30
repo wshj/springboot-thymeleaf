@@ -18,7 +18,37 @@ spring:
     # 是否开启缓存
     cache: false
 
+  # 配置 ANSI 输出一直为彩色
+  output:
+    ansi:
+      # 可选值：ALWAYS（显示）、DETECT（尝试检测 - 默认）、NEVER（关闭）
+      enabled: ALWAYS
+
 
 logging:
+  pattern:
+    # 自定义console输出的日志格式。
+    # 着色语法：%clr(%5p) 或 %clr(${PID:- }){magenta}
+    # - 所有支持的颜色：blue、cyan、faint、green、magenta、red、yellow
+    # - %clr(%5p)：根据5个级别显示不同的颜色。FATAL：red、ERROR：red、WARN：yellow、INFO：green、DEBUG：green、TRACE：green
+    # - %clr(${PID:- }){magenta} 将PID显示为：magenta（品红）颜色
+    # 下面解释每一个含义（按空格区分每一个独立的配置）
+    # springboot的文档中有基础介绍：https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-logging-format
+    # logback官方文档中有详细介绍如何按长度截断字符串，例如 %5p 中的 5 的含义：Chapter 6: Layouts（http://logback.qos.ch/manual/layouts.html#formatModifiers）
+    # - %d{yyyy-MM-dd HH:mm:ss.SSS}：%d是日期，{}中的内容标识将格式化为：yyyy-MM-dd HH:mm:ss.SSS
+    # - %5p：%p日志级别：FATAL、ERROR、WARN、INFO、DEBUG、TRACE，5代表右对齐，如果不够5个字符，左边填充空格
+    # - ${PID:- }：Process ID。可以通过 ${} 的语法取变量值
+    # - ---：只是用来分割一下，右侧是实际的日志内容
+    # - [%15.15t]：[]是外部的框，%t是线程名。15.15表示右对其，左边的15代表小于15的字符，左边填充空格；右边的15代表最多15个字符，超过15从开始处（左边）截断（这里可能被控制台截断）
+    # - %-40.40logger{39}：
+    #   - %logger是类名，
+    #   - {39}表示最长39超过后按照规则截断，如果类全名超过长度限制则优先显示每一级报名，然后依次从右向左显示全名。具体解释详见官方文档：http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout
+    #   - 40表示左对齐，不够40则在右侧填充空格；
+    #   - 40代表最多40个字符，超过40从开始处截断（左边），想要从右边截断，需要改成 -40.-40。
+    # - %m：具体消息
+    # - %n：换行符
+     console（默认）: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n"
+#    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-100.100logger{99}){cyan} %clr(:){faint} %m%n"
   file:
+    path: /opt/logs/
     name: /opt/logs/springboot_thymeleaf.log
