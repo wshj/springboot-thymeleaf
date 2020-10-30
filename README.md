@@ -3,6 +3,7 @@ springboot springmvc项目
 
 ## 20201017 项目搭建
 
+- 文章详见：https://www.yuque.com/zhqy/springboot/qdkbkl
 - 如果想要使用默认的静态文件配置，千万不可以用 ```@EnableWebMvc```，否则会导致默认配置失效
 - 可以通过 ```spring.mvc.static-path-pattern``` 配置与静态资源匹配的URL（通过正则匹配），默认：/**，指定后会导致默认值的失效
 
