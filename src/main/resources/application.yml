@@ -50,5 +50,15 @@ logging:
      console（默认）: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n"
 #    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-100.100logger{99}){cyan} %clr(:){faint} %m%n"
   file:
-    path: /opt/logs/
+    # 将日志输出到下面配置的绝对路径，其他的配置可以从springboot文档中查看：https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-custom-log-configuration
     name: /opt/logs/springboot_thymeleaf.log
+    # 默认配置下，有 name 存在时，这个不生效
+    path: /opt/logs/aaa/
+    # --- 启动时清除存档日志文件（没有成功）
+    clean-history-on-start: false
+    # 最大的日志文件，超出后自动归档，默认单位：字节，可以指定单位：kb|mb|gb
+    max-size: 1kb
+    # 最大的归档日志文件，超出后自动删除，单位：天
+    max-history: 3
+    # 保留的日志文件总大小，按时间从旧的开始删除，默认单位：字节，可以指定单位：kb|mb|gb
+    total-size-cap: 500mb

@@ -7,8 +7,6 @@
     <!-- 引入输出到文件的配置 -->
     <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
 
-    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}spring.log}"/>
-
     <!-- 指定默认输出模式 -->
     <root level="INFO" >
         <!-- 默认输出模式为：CONSOLE -->

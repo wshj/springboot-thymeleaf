@@ -29,6 +29,7 @@ public class IndexController {
         LOGGER.info("进入了index方法");
         LOGGER.warn("进入了index方法");
         LOGGER.error("进入了index方法");
+        LOGGER.error("进入了index方法", new RuntimeException("报了个错"));
 
         return "aaa";
     }
