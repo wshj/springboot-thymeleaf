@@ -24,8 +24,17 @@ spring:
       # 可选值：ALWAYS（显示）、DETECT（尝试检测 - 默认）、NEVER（关闭）
       enabled: ALWAYS
 
+# 自定义一个变量
+project_var: project_var_1
 
 logging:
+  # 自定义日志分组，可以根据分组指定日志级别
+  group:
+    zhqy: com.zhqy.springboot.config, com.zhqy.springboot.controller
+  # 这里指定级别后，会覆盖 logback-spring.xml 中对应的级别
+  level:
+    root: info
+    zhqy: debug
   pattern:
     # 自定义console输出的日志格式。
     # 着色语法：%clr(%5p) 或 %clr(${PID:- }){magenta}
@@ -47,8 +56,20 @@ logging:
     #   - 40代表最多40个字符，超过40从开始处截断（左边），想要从右边截断，需要改成 -40.-40。
     # - %m：具体消息
     # - %n：换行符
-     console（默认）: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n"
-#    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-100.100logger{99}){cyan} %clr(:){faint} %m%n"
+    # - %wEx：springboot 自己实现的异常输出：在异常前后各加一个空行，详见：org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter
+#     console（默认）: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"
+#    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-100.100logger{99}){cyan} %clr(:){faint} %m%n%wEx"
+
+    # 配置文件输出格式
+    # - project_name，在 logback-spring.xml 中配置：<property name="project_name" value="springboot-thymeleaf" />，不可配置默认值，否则无法读取在 logback-spring.xml 中的变量
+    # - HOSTNAME，读取系统的变量
+    # - %hostIp，读取自定义的变量"hostIp"。
+    #   - 在 logback-spring.xml 中配置：<conversionRule conversionWord="hostIp" converterClass="com.zhqy.springboot.config.log.LogIpConverter" />
+    #   - com.zhqy.springboot.config.log.LogIpConverter 是自定义的逻辑，继承了 ClassicConverter
+    # - project_var:default
+    #   - project_var，读取配置文件中的变量
+    #   - :，表示如果没有读取到变量 project_var 的值，则显示 default（本配置文件中用:分割变量和默认值；logback-spring.xml中用:-区分）
+    file: "${project_name} ${project_var:default} %hostIp ${HOSTNAME} %d{yyyy-MM-dd HH:mm:ss.SSS} %5p %-40.40logger{39}:%-4L - %m%n%wEx"
   file:
     # 将日志输出到下面配置的绝对路径，其他的配置可以从springboot文档中查看：https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-custom-log-configuration
     name: /opt/logs/springboot_thymeleaf.log
@@ -57,8 +78,8 @@ logging:
     # --- 启动时清除存档日志文件（没有成功）
     clean-history-on-start: false
     # 最大的日志文件，超出后自动归档，默认单位：字节，可以指定单位：kb|mb|gb
-    max-size: 1kb
+    max-size: 10mb
     # 最大的归档日志文件，超出后自动删除，单位：天
-    max-history: 3
+    max-history: 2
     # 保留的日志文件总大小，按时间从旧的开始删除，默认单位：字节，可以指定单位：kb|mb|gb
     total-size-cap: 500mb

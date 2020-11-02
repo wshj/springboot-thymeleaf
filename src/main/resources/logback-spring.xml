@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
+    <property name="project_name" value="springboot-thymeleaf" />
+
+    <conversionRule conversionWord="hostIp" converterClass="com.zhqy.springboot.config.log.LogIpConverter" />
+
     <!-- 引入默认配置 -->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <!-- 引入输出到控制台的配置 -->
